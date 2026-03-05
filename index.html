@@ -6,6 +6,157 @@
     <title>The Calculator</title>
 </head>
 <body>
+    <h1>This is my Calculator</h1>
+
+<div class="calculadora-contenedor"></div>
+    <div class="pantalla" id="pantalla">0</div>
+    <div class="buttons">
+        <div class="boton operador" onclick="appendOperador('+')">+</div>
+        <div class="boton operador" onclick="appendOperador('-')">-</div>
+        <div class="boton operador" onclick="appendOperador('*')">*</div>
+        <div class="boton operador" onclick="appendOperador('/')">/</div>
+          
+
+        <div class="boton numero"onclick="appendNumber('7')">7</div>
+        <div class="boton numero" onclick="appendNumber('8')">8</div>
+        <div class="boton numero" onclick="appendNumber('9')">9</div>
+        
+
+        <div class="boton numero" onclick="appendNumber('4')">4</div>
+        <div class="boton numero" onclick="appendNumber('5')">5</div>
+        <div class="boton numero"onclick="appendNumber('6')">6</div>
+        
+
+        <div class="boton numero" onclick="appendNumber('1')">1</div>
+        <div class="boton numero" onclick="appendNumber('2')">2</div>
+        <div class="boton numero"onclick="appendNumber('3')">3</div>
+        
+        <div class="boton numero" onclick="appendNumber('0')">0</div>
+        <div class="boton operador" onclick="appendOperador('.')">.</div>
+        <div class="boton operador" onclick="limpiarPantalla()">AC</div>    
+        
+        <div class="boton operador enter" onclick="operacion()">=</div>
+        
+     
+<style>
     
+    html { 
+    display: grid;
+    background-color: #ffc600;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 200;
+    justify-content: center;
+    }
+
+    .calculadora-contenedor {
+        border-radius: 10px;
+        box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15) 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+        margin-inline-start: auto;
+        margin-inline-end: auto;
+        margin-block-start: 2em;
+        max-inline-size: 22rem;
+        overflow: hidden;
+    }
+
+    .pantalla{
+        border-radius: 10px;
+        border: .4rem solid black;
+        margin-bottom: 5px;
+        padding: 15px 10px;
+        background-color: hsl(202, 11%, 29%);
+        color: hsl(255, 100%, 100%);
+        text-align: right;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: xx-large;
+    }
+  
+    body {
+       margin: 0;
+    }
+
+    .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    }   
+    
+    .boton {
+    border: .4rem solid black;
+    border-radius: .4rem;
+    font-size:24px;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+    .enter{
+        grid-column: 4/ 5;
+        grid-row: 2 / span 4;
+        height: auto;
+    }
+
+    .numero{
+        background-color: darkgoldenrod;
+    }
+
+    .operador{ 
+        background-color: chocolate;
+    }
+</style>
+<script>
+ 
+    let primerNumero = "";
+    let operador = "";
+    let segundoNumero = ""; 
+    let valorDePantalla = "";
+   
+
+    function actualizarPantalla(){
+        if(valorDePantalla === "") {
+            document.getElementById("pantalla").innerHTML = "0";
+        } else {
+            document.getElementById("pantalla").innerHTML = valorDePantalla;
+        }
+    }
+
+    const lasOperaciones = {
+        sumar: (a, b) => a + b, 
+        restar: (a, b) => a - b,
+        multiplicar: (a, b) => a * b,
+        dividir: (a, b) => a / b
+    }
+
+    function operacion(operation ,num1 ,num2){
+        if(lasOperaciones[operation]){
+            return lasOperaciones[operation](num1, num2);
+        } else{
+            return "Error";
+        }
+        actualizarPantalla();
+    }
+
+    function appendNumber(numero) {
+        valorDePantalla += numero;
+        actualizarPantalla();
+    }
+
+    function appendOperador(operador) {
+        if(
+        valorDePantalla !== "" && 
+        !isNaN(valorDePantalla.charAt(valorDePantalla.length -1))
+        ){
+            valorDePantalla += operador;
+            actualizarPantalla();
+        }
+    }
+    function limpiarPantalla(){
+        valorDePantalla = "";
+        actualizarPantalla();
+    }
+   
+</script>
 </body>
 </html>
